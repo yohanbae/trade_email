@@ -6,42 +6,47 @@ router.route('/').get((req, res) => {
 });
 
 router.route('/').post((req, res) => {
-    const verify = req.body.verifycode;
-    const verifyCheck = process.env.VERIFY_CODE
-    const email = req.body.email;
-    const nickname = req.body.nickname;
-    const transactionId = req.body.transactionId;
-    const tradeItem = req.body.tradeItem;
-    if(verify === verifyCheck){
-        const sgMail = require('@sendgrid/mail')
-        sgMail.setApiKey(process.env.SENDGRID)
-        const msg = {
-            to: email,
-            from:'kfreetrade@gmail.com',
-            subject:`[Kpop Free Trade] Trade Request arrived from ${nickname}!`,
-            text: `Trade request arrived regarding following item: ${tradeItem}`,
-            html:`
-              Trade request received from ${nickname} regarding this item: <strong>${tradeItem}</strong>
-              <br /><br />
-              <a clicktracking=off href="https://kexchange.netlify.app/transaction/${transactionId}">REPLY</a>
-              <br /><br />
-              Trade KPOP Goods!<br />
-              Free&Secure<br />
-              https://kexchange.netlify.app
-              `
-        }
-        
-        sgMail.send(msg)
-        .then(() => {
-          console.log('Email Sent')
-          return res.json({'status': true });        
-        })
-        .catch(error => {
-          console.error(error)
-          return res.json({'status': false });
-        })
+  console.log("HOIHOI", req.body.nickname)
+  return res.json({
+    name: req.body.nickname
+  })
 
-    }
+    // const verify = req.body.verifycode;
+    // const verifyCheck = process.env.VERIFY_CODE
+    // const email = req.body.email;
+    // const nickname = req.body.nickname;
+    // const transactionId = req.body.transactionId;
+    // const tradeItem = req.body.tradeItem;
+    // if(verify === verifyCheck){
+    //     const sgMail = require('@sendgrid/mail')
+    //     sgMail.setApiKey(process.env.SENDGRID)
+    //     const msg = {
+    //         to: email,
+    //         from:'kfreetrade@gmail.com',
+    //         subject:`[Kpop Free Trade] Trade Request arrived from ${nickname}!`,
+    //         text: `Trade request arrived regarding following item: ${tradeItem}`,
+    //         html:`
+    //           Trade request received from ${nickname} regarding this item: <strong>${tradeItem}</strong>
+    //           <br /><br />
+    //           <a clicktracking=off href="https://kexchange.netlify.app/transaction/${transactionId}">REPLY</a>
+    //           <br /><br />
+    //           Trade KPOP Goods!<br />
+    //           Free&Secure<br />
+    //           https://kexchange.netlify.app
+    //           `
+    //     }
+        
+    //     sgMail.send(msg)
+    //     .then(() => {
+    //       console.log('Email Sent')
+    //       return res.json({'status': true });        
+    //     })
+    //     .catch(error => {
+    //       console.error(error)
+    //       return res.json({'status': false });
+    //     })
+
+    // }
 });
 
 router.route('/feedback').post((req, res) => {
@@ -68,7 +73,7 @@ router.route('/feedback').post((req, res) => {
       sgMail.send(msg)
       .then(() => {
         console.log('Email Sent')
-        return res.json({'status': true });        
+        return res.json({'statuss': true });        
       })
       .catch(error => {
         console.error(error)
